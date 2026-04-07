@@ -181,23 +181,23 @@ pub async fn import(
         };
 
         let needs_review;
-        let review_reason;
+        let _review_reason;
         if let Some(ref email_val) = email {
             if !email_val.is_empty() {
                 if let Ok(Some(_)) = Customer::find_by_email(&pool, email_val).await {
                     needs_review = true;
-                    review_reason = Some(format!("Duplicate email: {}", email_val));
+                    _review_reason = Some(format!("Duplicate email: {}", email_val));
                 } else {
                     needs_review = false;
-                    review_reason = None;
+                    _review_reason = None;
                 }
             } else {
                 needs_review = false;
-                review_reason = None;
+                _review_reason = None;
             }
         } else {
             needs_review = false;
-            review_reason = None;
+            _review_reason = None;
         }
 
         let create_data = CreateCustomer {
@@ -211,14 +211,12 @@ pub async fn import(
         };
 
         match Customer::create(&pool, &create_data).await {
-            Ok(mut customer) => {
+            Ok(_customer) => {
                 if needs_review {
-                    if let Ok(updated) = customer.update(&pool, &crate::models::UpdateCustomer {
+                    let _ = _customer.update(&pool, &crate::models::UpdateCustomer {
                         status: Some(status),
                         ..Default::default()
-                    }).await {
-                        customer = updated;
-                    }
+                    }).await;
                 }
                 imported += 1;
             }
@@ -238,14 +236,4 @@ pub async fn import(
     headers.insert("Location", "/customers".parse().unwrap());
 
     (StatusCode::SEE_OTHER, headers, message).into_response()
-}
-
-trait FilterEmpty {
-    fn filter_empty(self) -> Option<String>;
-}
-
-impl FilterEmpty for String {
-    fn filter_empty(self) -> Option<String> {
-        if self.is_empty() { None } else { Some(self) }
-    }
 }

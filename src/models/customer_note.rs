@@ -13,6 +13,7 @@ pub struct CustomerNote {
 
 #[derive(Deserialize)]
 pub struct CreateCustomerNote {
+    #[allow(dead_code)]
     pub body: String,
 }
 
@@ -26,6 +27,7 @@ impl CustomerNote {
         .await
     }
 
+    #[allow(dead_code)]
     pub async fn create(pool: &PgPool, customer_id: Uuid, data: &CreateCustomerNote) -> Result<Self, sqlx::Error> {
         sqlx::query_as::<_, Self>(
             "INSERT INTO customer_notes (customer_id, body) VALUES ($1, $2) RETURNING *",

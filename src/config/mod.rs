@@ -4,7 +4,9 @@ use std::net::SocketAddr;
 pub struct Settings {
     pub app_name: String,
     pub app_env: AppEnv,
+    #[allow(dead_code)]
     pub app_debug: bool,
+    #[allow(dead_code)]
     pub app_url: String,
     pub database_url: String,
     pub addr: SocketAddr,
@@ -17,6 +19,7 @@ pub enum AppEnv {
 }
 
 impl AppEnv {
+    #[allow(dead_code)]
     pub fn is_dev(&self) -> bool {
         matches!(self, Self::Development)
     }

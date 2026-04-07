@@ -49,6 +49,7 @@ pub struct StatusCount {
     pub count: i64,
 }
 
+#[allow(dead_code)]
 pub const STATUSES: &[&str] = &["new", "contacted", "callback", "follow_up"];
 
 impl Customer {
@@ -160,6 +161,7 @@ impl Customer {
         .await
     }
 
+    #[allow(dead_code)]
     pub async fn total_count(pool: &PgPool) -> Result<i64, sqlx::Error> {
         let result: (i64,) = sqlx::query_as("SELECT COUNT(*) FROM customers")
             .fetch_one(pool)
@@ -176,6 +178,7 @@ impl Customer {
         .await
     }
 
+    #[allow(dead_code)]
     pub fn get_status_label(&self) -> &'static str {
         match self.status.as_str() {
             "new" => "New",

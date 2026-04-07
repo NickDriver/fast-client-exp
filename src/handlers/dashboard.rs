@@ -9,7 +9,7 @@ use uuid::Uuid;
 
 pub async fn dashboard(
     State(state): State<AppState>,
-    Extension(user_id): Extension<Uuid>,
+    Extension(_user_id): Extension<Uuid>,
 ) -> impl IntoResponse {
     let customers = Customer::all(&state.pool).await.unwrap_or_default();
     
