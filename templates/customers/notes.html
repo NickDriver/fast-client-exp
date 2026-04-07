@@ -1,0 +1,10 @@
+<div class="space-y-4 max-h-96 overflow-y-auto">
+    {% for note in notes %}
+    <div class="bg-gray-50 rounded-lg p-3">
+        <p class="text-sm text-gray-900">{{ note.body }}</p>
+        <p class="text-xs text-gray-500 mt-1">{{ note.created_at.format("%Y-%m-%d %H:%M") }}</p>
+    </div>
+    {% else %}
+    <p class="text-sm text-gray-500 italic">No notes yet.</p>
+    {% endfor %}
+</div>

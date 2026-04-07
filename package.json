@@ -1,0 +1,13 @@
+{
+  "name": "fastclient",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/static/css/app.css -o ./src/static/css/app.css --minify",
+    "watch:css": "tailwindcss -i ./src/static/css/app.css -o ./src/static/css/app.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.24",
+    "autoprefixer": "^10.4.14"
+  }
+}

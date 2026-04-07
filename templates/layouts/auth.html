@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50 dark:bg-warm-950">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FastClient{% endblock %} - FastClient CRM</title>
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <script src="/assets/js/htmx.min.js"></script>
+    <script src="/assets/js/htmx-ext-preload.js"></script>
+    {% block head %}{% endblock %}
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body class="h-full dark:bg-warm-950" hx-ext="preload" hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token }}"}'>
+    {% block content %}{% endblock %}
+
+    <script src="/assets/js/app.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
